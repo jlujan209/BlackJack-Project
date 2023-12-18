@@ -4,8 +4,8 @@ from House import house
 import os
 
 #TODO: 
-##Fix error where House never hits
-##Add draw situation and implement so that player doesn't win/lose points
+##Fix error where House never hits >>fixed?
+##Add draw situation and implement so that player doesn't win/lose points >> Added?
 ##In Bet() need to account for when user has no more tokens to bet, current situation gets user stuck in an infinite loop 
 
 #Clears the terminal for test purposes
@@ -20,8 +20,8 @@ def updateCurrentPool(currPool, bet):
 def playerWins(House, Player, Deck):
     #Determines whether the house 'hits' or 'stands' 
     #and draws cards while the house 'hits' and does not pass 21
-    while House.hit() and not House.bust():             ###########FIXME: Possible error, House never hits
-        Deck.dealCard(House)
+    while House.hit() and not House.bust():             ###########FIXME: Possible error, House never hits 
+        Deck.dealCard(House)                            ## Does hit?
 
     #Checks win conditions and determines if the player wins the game
     if(House.bust()):
@@ -31,10 +31,20 @@ def playerWins(House, Player, Deck):
     else:
         return False
     
+def draw(currPool):
+    ones = currPool[50] / 2
+    twos = currPool[100] / 2
+    threes = currPool[200] / 2
+    fours = currPool[500] / 2
+    fives = currPool[1000] / 2
+    tempPool = {50 : ones, 100 : twos, 200 : threes, 500 : fours, 1000 : fives}
+    return tempPool
+
+    
 #Outputs the current status of the game
 def printCurrGameStatus(House, Player):
     #Shows the dealer's upcard
-    print('Delear\'s Up Card:')
+    print('Dealer\'s Up Card:')
     House.showUpCard()
 
     #Shows the player's current hand
@@ -182,7 +192,15 @@ def Game():
         print(f'Your total sum: {playerOne.getSum()}')
 
         #Gives player the current pool if the player wins
-        if playerWins(House, playerOne, gameDeck) and not playerOne.bust():
+
+   
+
+        #if playerOne.getSum() == House.getSum():
+        if playerOne.getSum() == House.getSum():
+            print('\nDraw!\nAll points returned\n')
+            currPool = draw(currPool)  
+            playerOne.giveCurrPool(currPool)
+        elif playerWins(House, playerOne, gameDeck) and not playerOne.bust():
             playerOne.giveCurrPool(currPool)
             print('\nYou Win!!')
         else:
@@ -194,7 +212,6 @@ def Game():
 
         #Displays the user's current points and asks the user
         #if they wish to move onto the next round
-        print(f'\nCurrent Points: {playerOne.getPlayerPoints()}')
         print('\nWould you like to continue? (y/n)')
         cont = str(input())
 

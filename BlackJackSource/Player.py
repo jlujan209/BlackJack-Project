@@ -15,6 +15,7 @@ class player:
 
     #Displays the tokens that the user currently has
     def printTokens(self):
+        print(f'Total Tokens: {self.totalPoints}')
         print(f'\t1) Token 50, Quantity :  {self.tokens[50]}')
         print(f'\t2) Token 100, Quantity : {self.tokens[100]}')
         print(f'\t3) Token 200, Quantity : {self.tokens[200]}')
