@@ -76,7 +76,7 @@ def Bet(player, currPool):
         print('These are your current Tokens: ')
         player.printTokens()
         print('Choose tokens to place (1-5): ')
-        inp = int(input())
+        inp =int(input())
 
         #Checks for proper user input
         while not(inp >= 0 and inp <= 5) or not player.canPlaceToken(inp):
