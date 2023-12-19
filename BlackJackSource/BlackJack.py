@@ -6,7 +6,7 @@ import os
 #TODO: 
 ##Fix error where House never hits >>fixed?
 ##Add draw situation and implement so that player doesn't win/lose points >> Added?
-##In Bet() need to account for when user has no more tokens to bet, current situation gets user stuck in an infinite loop 
+##In Bet() need to account for when user has no more tokens to bet, current situation gets user stuck in an infinite loop >> Fixed??
 
 #Clears the terminal for test purposes
 def clear_console():
@@ -31,6 +31,7 @@ def playerWins(House, Player, Deck):
     else:
         return False
     
+    #Splits each of the tokens in currPool in half and returns half to the player    
 def draw(currPool):
     ones = currPool[50] / 2
     twos = currPool[100] / 2
@@ -39,10 +40,10 @@ def draw(currPool):
     fives = currPool[1000] / 2
     tempPool = {50 : ones, 100 : twos, 200 : threes, 500 : fours, 1000 : fives}
     return tempPool
-
     
 #Outputs the current status of the game
 def printCurrGameStatus(House, Player):
+
     #Shows the dealer's upcard
     print('Dealer\'s Up Card:')
     House.showUpCard()
@@ -68,9 +69,17 @@ def Bet(player, currPool):
     print(f'Current points: {player.getPlayerPoints()}')
     bet = 0
     done = False
+        
 
     #Loop allows user to bet multiple tokens in one round
     while not done:
+
+        #Checks if the player has points to bet, if not returns
+        if player.getPlayerPoints() == 0:
+            done = True
+            print(f'You have no more points to bet.')
+            return
+
         clear_console()
         print(f'Current Bet: {bet} points')
         print('These are your current Tokens: ')
@@ -107,6 +116,7 @@ def Bet(player, currPool):
 
         #Shows the status of points and the current bet placed
         print(f'Current points: {player.getPlayerPoints()}')
+        
         print(f'Current Bet: {bet} points')
 
         #Asks the user if they wish to up their bet
@@ -132,7 +142,7 @@ def Game():
     clear_console()
 
     #Loop for Game Round, keeps running while player doesn't choose to quit
-    #and while player still has points to bet
+    #and while player still has points to bet        
     while not done and playerOne.getPlayerPoints() > 0:
         
         #Clears the player's hand between rounds
@@ -155,8 +165,13 @@ def Game():
         Bet(playerOne, currPool)
         clear_console()
 
+        #Lets the player know they have no more points to bet
+        if playerOne.getPlayerPoints() == 0:
+            print(f'No more points left to bet.\n')
+
         #Once bet has been placed game starts and hand is shown to player
         printCurrGameStatus(House, playerOne)
+
 
         #Allow player to keep drawing cards from stack while sum doesn't pass 21
         while not playerOne.bust():
@@ -191,11 +206,8 @@ def Game():
         playerOne.printHand()
         print(f'Your total sum: {playerOne.getSum()}')
 
-        #Gives player the current pool if the player wins
+        #Gives player the current pool if the player wins returns points to player if draw
 
-   
-
-        #if playerOne.getSum() == House.getSum():
         if playerOne.getSum() == House.getSum():
             print('\nDraw!\nAll points returned\n')
             currPool = draw(currPool)  
