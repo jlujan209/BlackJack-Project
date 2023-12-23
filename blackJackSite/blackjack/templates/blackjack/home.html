@@ -1,0 +1,12 @@
+{% extends 'blackjack/base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'blackjack/home.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome</h1>
+    <h2>Let's play Blackjack</h2>
+    <a href="{% url 'game' %}">Start</a>
+{% endblock %}
