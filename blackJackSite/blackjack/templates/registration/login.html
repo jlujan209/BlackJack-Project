@@ -1,0 +1,21 @@
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'blackjack/login.css' %}">
+<div class="login-container">
+    <h2 class="login-title">Login</h2>
+    <form class="login" method="post" >
+        <div>
+            {% csrf_token %}
+            <label for="username" class="labels">Username</label>
+            <input type="text" id="username" name="username" >
+            <br>
+            <label for="password" class="labels">Password</label>
+            <input type="password" id="password" name="password" >
+            <br>
+            <input type="submit" value="Login"/>
+        </div>
+        <div>
+            <p class="signup">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+        </div>
+    </form>
+</div>

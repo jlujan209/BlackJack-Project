@@ -1,0 +1,71 @@
+
+
+*{
+    background: #212121;
+}
+
+.signup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+  }
+
+  .signup-title{
+    color:white;
+    text-shadow: 0 0 5px beige;
+    font-size: 3em;
+    margin-bottom: 1em;
+  }
+
+  @keyframes glow{
+    from{
+        box-shadow: 0 0 30px white, 0 0 30px #333, 0 0 30px white;
+    }
+    25%{
+        box-shadow: 0 0 30px #333, 0 0 30px white, 0 0 30px #333;
+    }
+    50%{
+        box-shadow: 0 0 30px white, 0 0 30px #333, 0 0 30px white;
+    }
+    75%{
+        box-shadow: 0 0 30px #333, 0 0 30px white, 0 0 30px #333;
+    }
+    to{
+        box-shadow: 0 0 30px white, 0 0 30px #333, 0 0 30px white;
+    }
+  }
+  
+  .form {
+    max-width: 400px; 
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #212121; 
+    border-radius: 8px;
+    animation: 5s glow infinite ease-out;
+    color: white;
+  }
+
+  .form label{
+    color: white;
+    font-size: 1em;
+    background-color: #212121;
+  }
+
+  .form input{
+    color: white;
+    font-size: 1em;
+    background-color: #414040;
+  }
+
+.button{
+    display: block;
+    margin: 0 auto;
+    font-size: 2em;
+}
+
+ul.errorlist{
+    color: red;
+}
